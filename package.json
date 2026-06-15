@@ -1,0 +1,15 @@
+{
+  "name": "workflow-sandbox",
+  "version": "1.0.0",
+  "description": "Sandbox repository for nuage-agent workflows",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "lint": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^1.6.1"
+  }
+}
