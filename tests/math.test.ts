@@ -18,3 +18,17 @@ describe("sum", () => {
     expect(sum(1.5, 2.5)).toBe(4);
   });
 });
+
+describe("sum - floating point precision edge cases", () => {
+  it("returns 0.30000000000000004 for sum(0.1, 0.2) due to floating point precision", () => {
+    expect(sum(0.1, 0.2)).toBe(0.30000000000000004);
+  });
+
+  it("returns 0.7999999999999999 for sum(0.1, 0.7) due to floating point precision", () => {
+    expect(sum(0.1, 0.7)).toBe(0.7999999999999999);
+  });
+
+  it("returns 0.6000000000000001 for sum(0.2, 0.4) due to floating point precision", () => {
+    expect(sum(0.2, 0.4)).toBe(0.6000000000000001);
+  });
+});
