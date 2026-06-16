@@ -11,10 +11,15 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
+variable "image_tag" {
+  description = "Docker image tag to deploy (e.g. commit hash). Set by CI/CD pipeline."
+  type        = string
+}
+
 # ECR Repository
 resource "aws_ecr_repository" "workflow_sandbox" {
   name                 = "workflow-sandbox"
-  image_tag_mutability = "MUTABLE"
+  image_tag_mutability = "IMMUTABLE"
 
   image_scanning_configuration {
     scan_on_push = true
@@ -50,7 +55,7 @@ resource "aws_lambda_function" "workflow_sandbox" {
   function_name = "workflow-sandbox"
   role          = aws_iam_role.lambda_exec.arn
   package_type  = "Image"
-  image_uri     = "${aws_ecr_repository.workflow_sandbox.repository_url}:latest"
+  image_uri     = "${aws_ecr_repository.workflow_sandbox.repository_url}:${var.image_tag}"
 }
 
 # EventBridge Schedule Rule
