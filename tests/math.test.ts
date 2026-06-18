@@ -70,15 +70,15 @@ describe("divide", () => {
     expect(divide(7, 2)).toBe(3.5);
   });
 
-  it("returns Infinity for divide(1, 0)", () => {
-    expect(divide(1, 0)).toBe(Infinity);
+  it("throws RangeError for divide(1, 0)", () => {
+    expect(() => divide(1, 0)).toThrow(RangeError);
   });
 
-  it("returns -Infinity for divide(-1, 0)", () => {
-    expect(divide(-1, 0)).toBe(-Infinity);
+  it("throws RangeError for divide(-1, 0)", () => {
+    expect(() => divide(-1, 0)).toThrow(RangeError);
   });
 
-  it("returns NaN for divide(0, 0)", () => {
-    expect(divide(0, 0)).toBeNaN();
+  it("throws RangeError for divide(0, 0)", () => {
+    expect(() => divide(0, 0)).toThrow(RangeError);
   });
 });
