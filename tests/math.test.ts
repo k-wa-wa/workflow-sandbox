@@ -19,6 +19,28 @@ describe("sum", () => {
   });
 });
 
+describe("sum - special number values", () => {
+  it("returns Infinity for sum(Infinity, 1)", () => {
+    expect(sum(Infinity, 1)).toBe(Infinity);
+  });
+
+  it("returns -Infinity for sum(-Infinity, -1)", () => {
+    expect(sum(-Infinity, -1)).toBe(-Infinity);
+  });
+
+  it("returns NaN for sum(Infinity, -Infinity)", () => {
+    expect(sum(Infinity, -Infinity)).toBeNaN();
+  });
+
+  it("returns NaN for sum(NaN, 1)", () => {
+    expect(sum(NaN, 1)).toBeNaN();
+  });
+
+  it("returns Infinity for sum(Number.MAX_VALUE, Number.MAX_VALUE) due to overflow", () => {
+    expect(sum(Number.MAX_VALUE, Number.MAX_VALUE)).toBe(Infinity);
+  });
+});
+
 describe("sum - floating point precision edge cases", () => {
   it("returns 0.30000000000000004 for sum(0.1, 0.2) due to floating point precision", () => {
     expect(sum(0.1, 0.2)).toBe(0.30000000000000004);
