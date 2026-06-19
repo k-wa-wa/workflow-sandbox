@@ -48,6 +48,37 @@ resource "aws_ecr_repository" "workflow_sandbox" {
   }
 }
 
+# ECR Lifecycle Policy
+resource "aws_ecr_lifecycle_policy" "workflow_sandbox" {
+  repository = aws_ecr_repository.workflow_sandbox.name
+
+  policy = jsonencode({
+    rules = [
+      {
+        rulePriority = 1
+        description  = "Remove untagged images"
+        selection = {
+          tagStatus   = "untagged"
+          countType   = "sinceImagePushed"
+          countUnit   = "days"
+          countNumber = 1
+        }
+        action = { type = "expire" }
+      },
+      {
+        rulePriority = 2
+        description  = "Keep only the last 30 images"
+        selection = {
+          tagStatus   = "any"
+          countType   = "imageCountMoreThan"
+          countNumber = 30
+        }
+        action = { type = "expire" }
+      }
+    ]
+  })
+}
+
 # IAM Role for Lambda
 data "aws_iam_policy_document" "lambda_assume_role" {
   statement {
