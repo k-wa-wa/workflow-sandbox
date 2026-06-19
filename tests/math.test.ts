@@ -19,6 +19,28 @@ describe("add", () => {
   });
 });
 
+describe("add - special number values", () => {
+  it("returns Infinity for add(Infinity, 1)", () => {
+    expect(add(Infinity, 1)).toBe(Infinity);
+  });
+
+  it("returns -Infinity for add(-Infinity, -1)", () => {
+    expect(add(-Infinity, -1)).toBe(-Infinity);
+  });
+
+  it("returns NaN for add(Infinity, -Infinity)", () => {
+    expect(add(Infinity, -Infinity)).toBeNaN();
+  });
+
+  it("returns NaN for add(NaN, 1)", () => {
+    expect(add(NaN, 1)).toBeNaN();
+  });
+
+  it("returns Infinity for add(Number.MAX_VALUE, Number.MAX_VALUE) due to overflow", () => {
+    expect(add(Number.MAX_VALUE, Number.MAX_VALUE)).toBe(Infinity);
+  });
+});
+
 describe("add - floating point precision edge cases", () => {
   it("returns 0.30000000000000004 for add(0.1, 0.2) due to floating point precision", () => {
     expect(add(0.1, 0.2)).toBe(0.30000000000000004);
